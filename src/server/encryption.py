@@ -30,7 +30,6 @@ def get_public_key()-> str:
         public_key =  _file.read()
         _file.close()
         return public_key
-    
 
 def get_private_key()-> str:
     with open(PRIVATE_KEY_PATH, 'r') as _file:
@@ -70,16 +69,13 @@ def decrypt(b64_encoded_encrypted_message)-> str:
         return decrypted_message
 
 def aes_encrypt(message):
-
     key = get_random_bytes(16)
     cipher = AES.new(key, AES.MODE_GCM)
     ciphertext, tag = cipher.encrypt_and_digest(message)
     nonce = cipher.nonce
     return ciphertext, tag, nonce,key
 
-
 def aes_decrypt(ciphertext, tag, key, nonce):
-
     cipher = AES.new(key, AES.MODE_GCM, nonce=nonce)
     plaintext = cipher.decrypt(ciphertext)
     try:
